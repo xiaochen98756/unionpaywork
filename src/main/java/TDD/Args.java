@@ -1,3 +1,4 @@
+package TDD;
 
 public class Args {
     private final Schmes schema;
@@ -13,6 +14,7 @@ public class Args {
     }
 
     public Object getValue(String name) {
+
         return schema.getValue(name,command.getValue(name));
     }
 }

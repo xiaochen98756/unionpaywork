@@ -1,3 +1,6 @@
+package TDD;
+
+import TDD.Schmes;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
