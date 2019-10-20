@@ -8,7 +8,7 @@ public class Point {
         this.y=y;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 

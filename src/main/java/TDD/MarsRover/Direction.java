@@ -1,5 +1,5 @@
 package TDD.MarsRover;
-import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,18 +7,18 @@ import java.util.Map;
 
 public class Direction {
     //N, S, E, W
-    public static String Direction_NORTH="N";
-    public static String Direction_SOUTH="S";
-    public static String Direction_EAST="E";
-    public static String Direction_WEST="W";
+    private static String Direction_NORTH="N";
+    private static String Direction_SOUTH="S";
+    private static String Direction_EAST="E";
+    private static String Direction_WEST="W";
 
-    public  static List<String> DirectionList=new ArrayList<String>(){};
+    private static List<String> DirectionList=new ArrayList<String>(){};
 
 
     private String curDirection="";
 
-    public static Map<String,String> leftDirectionCommandMap=new HashMap<>();
-    public static Map<String,String> rightDirectionCommandMap=new HashMap<>();
+    static Map<String,String> leftDirectionCommandMap=new HashMap<>();
+    static Map<String,String> rightDirectionCommandMap=new HashMap<>();
 
     public Direction(String direction) throws Exception {
         initalInputDirection(direction);
