@@ -1,0 +1,109 @@
+create table t1(
+    id      int
+   ,name    string
+   ,hobby   array<string>
+   ,add     map<String,string>
+)
+row format delimited
+fields terminated by ','
+collection items terminated by '-'
+map keys terminated by ':'
+;
+ 
+create external table t2(
+    id      int
+   ,name    string
+   ,hobby   array<string>
+   ,add     map<String,string>
+)
+row format delimited
+fields terminated by ','
+collection items terminated by '-'
+map keys terminated by ':'
+location '/user/t2'
+;
+ 
+1,xiaoming,book-TV-code,beijing:chaoyang-shagnhai:pudong
+2,lilei,book-code,nanjing:jiangning-taiwan:taibei
+3,lihua,music-book,heilongjiang:haerbin
+ 
+
+create table ods_stock(
+    orderid    string
+   ,trans_position    string
+   ,trans_date   string
+)
+row format delimited
+fields terminated by ','
+collection items terminated by '-'
+map keys terminated by ':'
+; 
+
+create table ods_stock_detail(
+    orderid    string
+   ,line_num    int
+   ,goods   string
+   ,num   int
+   ,price   int
+   ,amount   int
+)
+row format delimited
+fields terminated by ','
+collection items terminated by '-'
+map keys terminated by ':'
+; 
+
+create table ods_stock_detail(
+    unique_user_flag    string
+   ,website    string
+   ,ip_addr    string
+   ,lenovoid    string
+   ,leid    string
+   ,visiting_flag    string
+   ,unique_cookie    string
+   ,is_return    int
+   ,click_src    string
+   ,click_time    timestamp
+   ,click_time_point    int
+   ,time_slot    int
+   ,hour    int
+   ,click_tag    string
+   ,action_type    string
+   ,tag_type    string
+   ,tag_location    string
+   ,location_length    int
+   ,tag_name    string
+   ,tag_cd    string
+   ,tag_event    string
+   ,is_selected    int
+   ,tag_action_time    int
+   ,costtime    int
+   ,tag_action_path    string
+   ,tag_value    string
+   ,page_width    int
+   ,page_height    int
+   ,browser_name    string
+   ,x_pos    int
+   ,y_pos    int
+   ,is_order    int
+   ,is_valid_click    int
+   ,marknum    int
+   ,sub_section    string
+   ,sub_unit    string
+   ,website_cd    int
+   ,website_name    string
+   ,terminal_cd    int
+   ,terminal_name    string
+   ,pagemd5    string
+   ,page_title    string
+   ,page_domain    string
+   ,page_url    string
+   ,data_src_tbl    string
+   ,openid    string
+   ,dtd    string
+)
+row format delimited
+fields terminated by ','
+collection items terminated by '-'
+map keys terminated by ':'
+;
