@@ -11,6 +11,7 @@ public class MarsCar {
     private Point point;
     private Direction direction;
     private static Map<Object,Object> resultinfo=new HashMap<>();
+    private char command;
 
     public MarsCar(AreaInfo areaInfo, Point point, Direction direction) throws Exception {
         this.areaInfo = areaInfo;
@@ -21,9 +22,21 @@ public class MarsCar {
             throw new Exception("火星车的降落地点不在指定区域内！");
         }
     }
-
-
-
+    public int getX() {
+        return point.getX();
+    }
+    public int getY() {
+        return point.getY();
+    }
+    public int getLength() {
+        return areaInfo.getLength();
+    }
+    public String getCurDirection() {
+        return direction.getCurDirection();
+    }
+    public int getWidth() {
+        return areaInfo.getWidth();
+    }
     public AreaInfo getAreaInfo() {
         return areaInfo;
     }
@@ -57,116 +70,29 @@ public class MarsCar {
         return result;
     }
 
-    private static Map<Object, Object> MoveOrTurnCommand(MarsCar marsCar, char command) throws Exception {
-        String curdirection;
-        String curd=marsCar.getDirection().getCurDirection();
-        int curx=marsCar.getPoint().getX();
-        int cury=marsCar.getPoint().getY();
-        int afterx;
-        int aftery;
-        int desxory;
+
+    private Map<Object, Object> MoveOrTurnCommand(MarsCar marsCar, char command) throws Exception {
+        System.out.println("cur direction: "+marsCar.getCurDirection());
+        System.out.println("cur positon: ("+ marsCar.getPoint().getX()+", "+ marsCar.getPoint().getY()+")");
         switch (command){
             case 'l':
-                System.out.println("cur direction: "+marsCar.getDirection().getCurDirection());
-                curdirection=Direction.leftDirectionCommandMap.get(
-                        marsCar.getDirection().getCurDirection());
-                marsCar.setDirection(new Direction(curdirection));
-                System.out.println("after direction: "+marsCar.getDirection().getCurDirection());
-                System.out.println();
+                marsCar =new TurnLeft().turn(marsCar);
                 break;
             case 'r':
-                System.out.println("cur direction: "+marsCar.getDirection().getCurDirection());
-                curdirection=Direction.rightDirectionCommandMap.get(
-                        marsCar.getDirection().getCurDirection());
-                marsCar.setDirection(new Direction(curdirection));
-                System.out.println("after direction: "+marsCar.getDirection().getCurDirection());
-                System.out.println();
+                marsCar=new TurnRight().turn(marsCar);
                 break;
             case 'f':
-                System.out.println("cur direction: "+curd);
-                System.out.println("cur positon: ("+ curx+", "+ cury+")");
-                switch (marsCar.getDirection().getCurDirection()){
-                    case "N":
-                        desxory=cury+1;
-                        if(desxory==marsCar.getAreaInfo().getWidth()){
-                            desxory=0;
-                        }
-                        marsCar.getPoint().setY(desxory);
-                        break;
-                    case "S":
-                        desxory=cury-1;
-                        if(desxory<0){
-                            desxory=marsCar.getAreaInfo().getWidth()-1;
-                        }
-                        marsCar.getPoint().setY(desxory);
-                        break;
-                    case "E":
-                        desxory=curx+1;
-                        if(desxory==marsCar.getAreaInfo().getLength()){
-                            desxory=0;
-                        }
-                        marsCar.getPoint().setX(desxory);
-                        break;
-                    case "W":
-                        desxory=curx-1;
-                        if(desxory<0){
-                            desxory=marsCar.getAreaInfo().getLength()-1;
-                        }
-                        marsCar.getPoint().setX(desxory);
-                        break;
-                    default:
-                        break;
-                }
-                afterx=marsCar.getPoint().getX();
-                aftery=marsCar.getPoint().getY();
-                System.out.println("after positon: ("+ afterx+", "+ aftery+")");
-                System.out.println();
+                marsCar=new MoveForward().move(marsCar);
                 break;
-
             case 'b':
-                System.out.println("cur direction: "+curd);
-                System.out.println("cur positon: ("+ curx+", "+ cury+")");
-                switch (marsCar.getDirection().getCurDirection()){
-                    case "N":
-                        desxory=cury-1;
-                        if(desxory<0){
-                            desxory=marsCar.getAreaInfo().getWidth()-1;
-                        }
-                        marsCar.getPoint().setY(desxory);
-                        break;
-                    case "S":
-                        desxory=cury+1;
-                        if(desxory==marsCar.getAreaInfo().getWidth()){
-                            desxory=0;
-                        }
-                        marsCar.getPoint().setY(desxory);
-                        break;
-                    case "E":
-                        desxory=curx-1;
-                        if(desxory<0){
-                            desxory=marsCar.getAreaInfo().getLength()-1;
-                        }
-                        marsCar.getPoint().setX(desxory);
-                        break;
-                    case "W":
-                        desxory=curx+1;
-                        if(desxory==marsCar.getAreaInfo().getLength()){
-                            desxory=0;
-                        }
-                        marsCar.getPoint().setX(desxory);
-                        break;
-                    default:
-                        break;
-                }
-                afterx=marsCar.getPoint().getX();
-                aftery=marsCar.getPoint().getY();
-                System.out.println("after positon: ("+ afterx+", "+ aftery+")");
-                System.out.println();
+                marsCar=new MoveBack().move(marsCar);
                 break;
             default:
-
                 break;
         }
+        System.out.println("after positon: ("+ marsCar.getPoint().getX()+", "+ marsCar.getPoint().getY()+")");
+        System.out.println("after direction: "+marsCar.getDirection().getCurDirection());
+        System.out.println();
         resultinfo.put("Direction",marsCar.getDirection().getCurDirection());
         resultinfo.put("curx",marsCar.getPoint().getX());
         resultinfo.put("cury",marsCar.getPoint().getY());
