@@ -21,7 +21,7 @@ public class MarsCommand {
         this.command = command;
     }
 
-    public String getCommand() {
+    String getCommand() {
         return command;
     }
 

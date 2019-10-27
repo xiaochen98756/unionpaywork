@@ -8,7 +8,7 @@ public class Obstacle {
    private int y;
    private Point point;
 
-    private static List<Point> obstacleList=new ArrayList<>();
+    public static List<Point> obstacleList=new ArrayList<>();
 
    static {
        obstacleList.add(new Point(0,1));

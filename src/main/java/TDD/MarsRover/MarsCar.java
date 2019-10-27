@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+
 public class MarsCar {
 
     private AreaInfo areaInfo;
@@ -21,20 +23,25 @@ public class MarsCar {
                 ||point.getY()>=areaInfo.getWidth()){
             throw new Exception("火星车的降落地点不在指定区域内！");
         }
+        for (Point p:Obstacle.obstacleList) {
+            if(point.getX()==p.getX() && point.getY()==p.getY()){
+                throw new Exception("火星车不能降落在障碍物区域内");
+            }
+        }
     }
-    public int getX() {
+    int getX() {
         return point.getX();
     }
-    public int getY() {
+    int getY() {
         return point.getY();
     }
     public int getLength() {
         return areaInfo.getLength();
     }
-    public String getCurDirection() {
+    String getCurDirection() {
         return direction.getCurDirection();
     }
-    public int getWidth() {
+    int getWidth() {
         return areaInfo.getWidth();
     }
     public AreaInfo getAreaInfo() {
@@ -74,7 +81,9 @@ public class MarsCar {
     private Map<Object, Object> MoveOrTurnCommand(MarsCar marsCar, char command) throws Exception {
         System.out.println("cur direction: "+marsCar.getCurDirection());
         System.out.println("cur positon: ("+ marsCar.getPoint().getX()+", "+ marsCar.getPoint().getY()+")");
+
         switch (command){
+
             case 'l':
                 marsCar =new TurnLeft().turn(marsCar);
                 break;
@@ -90,13 +99,24 @@ public class MarsCar {
             default:
                 break;
         }
+
         System.out.println("after positon: ("+ marsCar.getPoint().getX()+", "+ marsCar.getPoint().getY()+")");
         System.out.println("after direction: "+marsCar.getDirection().getCurDirection());
         System.out.println();
+        marsCar.execObstacleDetection(marsCar);
         resultinfo.put("Direction",marsCar.getDirection().getCurDirection());
         resultinfo.put("curx",marsCar.getPoint().getX());
         resultinfo.put("cury",marsCar.getPoint().getY());
         return resultinfo;
 
+    }
+
+    private void execObstacleDetection(MarsCar marsCar) throws Exception {
+        Point curpoint=marsCar.getPoint();
+        for (Point point:Obstacle.obstacleList) {
+            if(curpoint.getX()==point.getX() && curpoint.getY()==point.getY()){
+                throw new Exception("火星车遇到了障碍物，将不再执行后续指令");
+            }
+        }
     }
 }
