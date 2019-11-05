@@ -1,48 +1,41 @@
 package TDD;
 
-public class Length {
-    private final double value;
-    private final String unit;
+class Length {
+    private double value;
+    private String unit;
 
-    public Length(double val, String uinnt) {
+
+    Length(double val, String uint) {
         this.value = val;
-        this.unit = uinnt;
+        this.unit = uint;
     }
 
-    public Length as(String u) {
-        Length len = this;
-        if (this.unit.equals("f")) {
-            if (u.equals("yard")) {
-                len = new Length(this.value / 3, u);
-            } else if (u.equals("inch")) {
-                len = new Length(this.value * 12, u);
-            }
-        }
+    Length as(String u) {
+        //1 英尺(foot) = 12 英寸(inch)
+        //1 码(yard) = 3 英尺(foot)
 
-        if (this.unit.equals("yard")) {
-            if (u.equals("inch")) {
-                len = new Length(this.value * 36, u);
-            } else if (u.equals("f")){
-                len = new Length(this.value * 3, u);
-            }
+        switch (this.unit){
+            case "f":
+                this.value=TransToFoot.transfor(u,value);
+                break;
+            case "yard":
+                this.value=TransToYard.transfor(u,value);
+                break;
+            case "inch":
+                this.value=TransToInch.transfor(u,value);
+                break;
+            default:
+                break;
         }
-
-        if (this.unit.equals("inch")) {
-            if (u.equals("f")) {
-                len = new Length(this.value / 12, u);
-            } else if (u.equals("yard")) {
-                len = new Length(this.value / 36, u);
-            }
-        }
-
-        return len;
+        this.unit=u;
+        return this;
     }
 
-    public double getVal() {
+    double getVal() {
         return this.value;
     }
 
-    public String getUinnt() {
+    String getUint() {
         return this.unit;
     }
 }
