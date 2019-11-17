@@ -47,14 +47,14 @@ public class m15_3Sum {
         return  res;
     }
 
-    public static int moveleft(int[] nums,int right){
+    private static int moveleft(int[] nums, int right){
         while (right==nums.length-1 || (right>=0 && nums[right]==nums[right+1])){
             right--;
         }
         return right;
     }
 
-    public static  int moveright(int[] nums,int left){
+    private static  int moveright(int[] nums, int left){
         while (left==0 || (left<nums.length) && nums[left]==nums[left-1]){
             left++;
         }
